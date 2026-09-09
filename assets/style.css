@@ -1,0 +1,201 @@
+/* 空き家の相場ノート — 見た目の設定
+ *
+ * 【方針】
+ * ・区分けを「色だけ」でしない。必ず記号（①②③・◆・⚠）と文字ラベルを添える。
+ *   色が見分けにくい人にも同じ情報が届くようにするため。
+ * ・スマホで見る人が多いので、横に長い表は表だけ横スクロールさせる（本文は動かさない）。
+ * ・明るい画面／暗い画面のどちらでも読めるようにする。
+ */
+
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --sub: #5c5c5c;
+  --line: #dcdcdc;
+  --card: #f7f7f5;
+  --accent: #1f5f8b;
+  --warn-bg: #fdf6e3;
+  --warn-line: #c9a227;
+  --plus: #1a6b3c;
+  --minus: #9b2226;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16181c;
+    --fg: #e8e8e8;
+    --sub: #a9a9a9;
+    --line: #33373d;
+    --card: #1d2025;
+    --accent: #7fb6d9;
+    --warn-bg: #2b2513;
+    --warn-line: #c9a227;
+    --plus: #6ecf9a;
+    --minus: #ef8a8f;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+main { max-width: 760px; margin: 0 auto; padding: 0 16px 64px; }
+
+header.site {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 16px;
+}
+header.site .logo {
+  font-weight: 700;
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.crumbs {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 12px 16px 0;
+  font-size: 13px;
+  color: var(--sub);
+}
+.crumbs a { color: var(--accent); }
+
+h1 { font-size: 24px; line-height: 1.5; margin: 20px 0 8px; }
+h2 { font-size: 19px; margin: 32px 0 12px; }
+h3 { font-size: 17px; margin: 0 0 8px; }
+h4 { font-size: 16px; margin: 0 0 8px; }
+
+.source-top { font-size: 12px; color: var(--sub); margin: 0 0 20px; }
+
+.hero {
+  background: var(--card);
+  border-left: 4px solid var(--accent);
+  padding: 14px 16px;
+  margin: 20px 0;
+  font-size: 17px;
+}
+.hero strong { font-size: 20px; }
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+  background: var(--bg);
+}
+
+.lead { font-size: 14px; color: var(--sub); margin: 0 0 12px; }
+.note { font-size: 13px; color: var(--sub); margin: 12px 0 0; }
+.sub  { font-size: 12px; color: var(--sub); display: block; }
+
+/* 記号＋文字ラベル（色に頼らない区分け） */
+.mark { font-weight: 700; white-space: nowrap; }
+.opt  { font-weight: 700; font-size: 15px; white-space: nowrap; }
+
+.warn {
+  background: var(--warn-bg);
+  border-left: 4px solid var(--warn-line);
+  padding: 10px 12px;
+  font-size: 13px;
+  margin: 12px 0;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
+th { font-weight: 600; width: 42%; }
+td.big, .big { font-size: 19px; font-weight: 700; }
+
+.scroll { overflow-x: auto; }
+.scroll table { min-width: 420px; }
+
+/* 計算ツール */
+.calc .fields { display: grid; gap: 14px; margin: 16px 0; }
+.calc label { display: block; font-size: 14px; font-weight: 600; }
+.calc .hint { display: block; font-size: 12px; color: var(--sub); font-weight: 400; margin: 2px 0 4px; }
+.calc input[type="number"], .calc select {
+  font-size: 16px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--fg);
+  width: 160px;
+}
+.calc label.check { font-weight: 400; }
+.calc label.check span { font-weight: 600; }
+
+.result { margin-top: 20px; }
+table.cmp th { width: 34%; }
+table.cmp tr.best { background: var(--card); }
+.plus  { color: var(--plus); }
+.minus { color: var(--minus); }
+
+.gap {
+  background: var(--card);
+  border-left: 4px solid var(--accent);
+  padding: 12px 14px;
+  margin: 16px 0;
+}
+
+details { margin-top: 12px; font-size: 13px; }
+summary { cursor: pointer; color: var(--accent); }
+.calcdetail { padding-left: 20px; color: var(--sub); }
+
+/* 出口（1ページに1つだけ） */
+.cta {
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 20px 16px;
+  margin: 32px 0;
+  text-align: center;
+}
+.cta .btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 14px 24px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 700;
+}
+.pr {
+  font-size: 11px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* 一覧 */
+ul.citylist, ul.preflist { list-style: none; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+ul.citylist li, ul.preflist li { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; }
+ul.citylist a, ul.preflist a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+footer.site {
+  border-top: 1px solid var(--line);
+  padding: 24px 16px 48px;
+  max-width: 760px;
+  margin: 0 auto;
+  font-size: 13px;
+  color: var(--sub);
+}
+footer.site h2 { font-size: 15px; color: var(--fg); }
+.credit { font-size: 12px; }
+ul.refs { padding-left: 20px; }
+ul.refs a { color: var(--accent); }
+.copy { margin-top: 20px; font-size: 12px; }
+
+/* フッターの固定ページへのリンク（運営者情報・プライバシーポリシー・免責事項）。
+   ASPの審査でもユーザーからも、ここが見えることが信用につながる。 */
+footer.site .sitelinks{margin:0 0 .8em;font-size:.95em}
+footer.site .sitelinks a{color:inherit;text-decoration:underline}
