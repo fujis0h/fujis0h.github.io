@@ -157,6 +157,9 @@
       '<strong>①放置</strong>と<strong>③売る</strong>では、5年後の手元のお金が約 <strong class="big">' +
       yen(gap) + '</strong> 違います。</p>' +
 
+      // 差額を見た直後が、いちばん次の行動につながる瞬間。ここで導線を出す。
+      '<p class="afterresult"><a href="#next">この差額を踏まえて、次にやることを見る →</a></p>' +
+
       advisedNote +
 
       '<details><summary>計算の中身を見る</summary>' +

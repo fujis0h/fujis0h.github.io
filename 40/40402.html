@@ -20,8 +20,27 @@
 
 <main>
   <h1>福岡県鞍手町の空き家・古家の買取相場</h1>
-  <p class="source-top">出典：国土交通省 不動産情報ライブラリ（https://www.reinfolib.mlit.go.jp/）</p>
-  <p class="hero">福岡県鞍手町で成約した中古戸建の<strong>まん中の価格は 750万円</strong>でした<span class="sub">（2021〜2026年・67件）</span></p>
+  
+<section class="hero">
+  <p class="hero-label">鞍手町で実際に成約した中古戸建の</p>
+  <p class="hero-num"><span class="n">750</span><span class="u">万円</span></p>
+  <p class="hero-sub">が「まん中の価格」（中央値）です</p>
+  <ul class="badges">
+    <li><span class="mark">◆ 出典</span> 国土交通省の実データ</li>
+    <li><span class="mark">■ 件数</span> 成約118件</li>
+    <li><span class="mark">▼ 期間</span> 2021〜2026年</li>
+  </ul>
+  <a class="hero-go" href="#calc">あなたの空き家を放置するといくら損か、計算する<span class="arrow">→</span></a>
+</section>
+<nav class="toc" aria-label="このページの目次">
+  <p class="toc-t">このページでわかること</p>
+  <ol>
+    <li><a href="#souba">鞍手町の買取相場（実際に成約した価格）</a></li>
+    <li><a href="#calc">放置・解体・売却を5年間の金額で比べる</a></li>
+    <li><a href="#suii">価格の推移と、築年（旧耐震か）の内訳</a></li>
+    <li><a href="#chomei">町名別の成約価格</a></li>
+  </ol>
+</nav><div id="souba" class="anchor"></div>
 <section class="card">
   <h3>中古戸建（土地と建物）の成約価格</h3>
   <p class="lead">実際に成約した <strong>67件</strong> から計算した目安です。</p>
@@ -56,6 +75,17 @@
   <p class="note">いちばん安かった取引・高かった取引は載せていません。
   借地権つきの土地や親族のあいだの売買など、相場とかけ離れた取引が混ざっているためです。</p>
 </section>
+<section class="card trust">
+  <h3>この数字の作り方（隠さず書きます）</h3>
+  <ul>
+    <li><span class="mark">◆ 実際に成約した価格です</span>
+      <b></b>売り出し価格（売主の希望価格）ではありません。国土交通省が取引当事者へのアンケートで集めた、実際に成約した価格を使っています。</li>
+    <li><span class="mark">■ 極端な取引は外しています</span>
+      <b></b>借地権つきの土地や親族のあいだの売買など、相場とかけ離れた取引が混ざります。最安値・最高値は載せず、上下1割を落とした範囲で示しています。</li>
+    <li><span class="mark">▼ 税金は条文で計算しています</span>
+      <b></b>よくある「空き家を放置すると固定資産税が6倍」は誤りです。地方税法 附則第18条・第25条の負担調整措置を計算に入れています（上限は約3.6倍、都市計画税を含む納税額では約3.06倍）。</li>
+  </ul>
+</section>
 <section class="card calc" id="calc">
   <h3>この空き家、あと5年放置するといくら損しますか？</h3>
   <p class="lead">鞍手町の実際の成約データをもとに、<strong>①そのまま放置する ②解体して更地で持つ ③今売る</strong>
@@ -89,7 +119,7 @@
   <p class="note"><span class="mark">⚠ 注意</span> このページの金額はすべて、国が公開している過去の成約データから機械的に計算した「目安」です。個別の物件の査定額ではありません。重要事項説明や建築確認申請には使えません。</p>
 </section>
 <script type="application/json" id="calcConfig">{"landUnitPrice": 8888, "houseMedian": 7500000, "defaultLandSqm": 390, "taxRateFixed": 0.014, "taxRateCity": 0.003, "specialSmallFixed": 0.16666666666666666, "specialLargeFixed": 0.3333333333333333, "specialSmallCity": 0.3333333333333333, "specialLargeCity": 0.6666666666666666, "smallLimit": 200, "burdenStep": 0.05, "burdenCap": 0.6, "assessedRatio": 0.7, "demolition": {"木造": [30000, 55000], "鉄骨造": [39000, 70000], "RC造": [60000, 100000]}, "disposal": [100000, 300000], "tsubo": 3.305785, "maintenance": [30000, 120000], "cityName": "鞍手町"}</script>
-<script src="../assets/calc.js"></script>
+<script src="../assets/calc.js"></script><div id="suii" class="anchor"></div>
 <section class="card">
   <h3>年ごとの成約価格のうつり変わり</h3>
   <p class="lead">同じ市区町村の中で、価格が上がっているのか下がっているのかを見るための表です。</p>
@@ -106,7 +136,7 @@
   <h3>成約した中古戸建の「築年」の内訳</h3>
   <p class="lead">1981年（昭和56年）に耐震の基準が変わりました。それより前の建物は「旧耐震」と呼ばれ、
   買い手が住宅ローンを組みにくいことがあります。空き家の売り方を分ける、いちばん大きな分かれ目です。</p>
-  <table>
+  <table class="age">
     <tbody>
       <tr><th><span class="mark">▲ 旧耐震</span> 1981年以前の建築</th><td class="big">25件</td><td>全体の 43%</td></tr>
       <tr><th><span class="mark">● 新耐震</span> 1982年以降の建築</th><td class="big">32件</td><td>全体の 57%</td></tr>
@@ -116,7 +146,7 @@
   <p>いちばん古い成約物件は <strong>1956年</strong> の建築でした。</p>
   <p class="note">鞍手町で成約した中古戸建のうち 43% が旧耐震でした。
   旧耐震の割合が高い地域では、住宅として売るより「土地として売る」「専門の買取業者に売る」ほうが早く決まる傾向があります。</p>
-</section>
+</section><div id="chomei" class="anchor"></div>
 <section class="card">
   <h3>町名別の成約価格（中古戸建）</h3>
   <p class="lead">成約の件数が多い順です。同じ市区町村でも、町ごとに価格はかなり変わります。</p>
@@ -137,14 +167,23 @@
   </table>
   </div>
 </section>
-  
-<section class="cta">
-  <p>ここまでの金額は、市区町村ぜんぶを平均した目安です。<br>
-  <strong>あなたの物件がいくらになるかは、現地を見ないと決まりません。</strong></p>
+<section class="next" id="next">
+  <h2>相場がわかった次にやること</h2>
+  <p class="lead">ここまでの金額は鞍手町全体の目安です。<strong>あなたの物件がいくらになるかは、現地を見ないと決まりません。</strong>順番としては次の3つです。</p>
+  <ol>
+    <li><b>放置した場合の損失を先に把握する</b>
+      売る・売らないを決める前に、持ち続けたときに出ていく金額を知っておきます。<a href="#calc">上の計算ツール</a>で5年ぶんを出せます。</li>
+    <li><b>旧耐震かどうかで売り方を変える</b>
+      1981年以前の建物は買い手が住宅ローンを組みにくく、住宅として売るより「土地として売る」「買取業者に売る」ほうが早く決まる傾向があります。</li>
+    <li><b>1社だけで決めない</b>
+      買取価格は業者によって差が出ます。査定は複数取って比べるのが基本です。</li>
+  </ol>
 </section>
+  
 </main>
 
 <footer class="site">
+  <p class="updated">このページの最終更新：2026年9月9日</p>
   <h2>このページの数字について</h2>
   <p>このページの金額はすべて、国が公開している過去の成約データから機械的に計算した「目安」です。個別の物件の査定額ではありません。重要事項説明や建築確認申請には使えません。</p>
   <p class="credit">出典：国土交通省 不動産情報ライブラリ（https://www.reinfolib.mlit.go.jp/）</p>

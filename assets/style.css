@@ -1,37 +1,62 @@
 /* 空き家の相場ノート — 見た目の設定
  *
- * 【方針】
- * ・区分けを「色だけ」でしない。必ず記号（①②③・◆・⚠）と文字ラベルを添える。
- *   色が見分けにくい人にも同じ情報が届くようにするため。
- * ・スマホで見る人が多いので、横に長い表は表だけ横スクロールさせる（本文は動かさない）。
- * ・明るい画面／暗い画面のどちらでも読めるようにする。
+ * 【設計方針】
+ * 1. 信頼が最優先。装飾のための装飾はしない。「根拠が見えること」を装飾の役目にする。
+ * 2. 区分けを「色だけ」でしない。必ず記号（◆ ■ ▼ ① ② ③）と文字ラベルを添える。
+ *    色が見分けにくい人にも同じ情報が届くようにするため。
+ * 3. 色は「青（情報・信頼）」と「オレンジ（行動）」の2系統だけ。
+ *    この2色は色覚特性があっても見分けやすい組み合わせ（赤×緑を避ける）。
+ * 4. 数字が主役。金額は桁を揃えて（tabular-nums）大きく出す。
+ * 5. スマホで見る人が多いので、横に長い表は表だけ横スクロールさせる（本文は動かさない）。
  */
 
 :root {
   --bg: #ffffff;
-  --fg: #1a1a1a;
-  --sub: #5c5c5c;
-  --line: #dcdcdc;
-  --card: #f7f7f5;
-  --accent: #1f5f8b;
+  --fg: #0f172a;
+  --sub: #55606e;
+  --line: #e3e8ee;
+  --line-strong: #c9d3de;
+  --card: #f7f9fb;
+
+  --pri: #0b4f71;        /* 情報・信頼の青 */
+  --pri-weak: #e9f1f6;   /* 青の薄い面 */
+  --pri-line: #b7d2e2;
+
+  --act: #a8480a;        /* 行動のオレンジ（青と判別しやすい） */
+  --act-weak: #fdf1e7;
+  --act-line: #e8c2a0;
+
   --warn-bg: #fdf6e3;
   --warn-line: #c9a227;
-  --plus: #1a6b3c;
-  --minus: #9b2226;
+  --plus: #14663a;
+  --minus: #a3212a;
+
+  --shadow: 0 1px 2px rgba(15,23,42,.05), 0 8px 24px -16px rgba(15,23,42,.25);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #16181c;
-    --fg: #e8e8e8;
-    --sub: #a9a9a9;
-    --line: #33373d;
-    --card: #1d2025;
-    --accent: #7fb6d9;
+    --bg: #14171c;
+    --fg: #e9edf2;
+    --sub: #a3adb9;
+    --line: #2b3138;
+    --line-strong: #3c444e;
+    --card: #1b1f25;
+
+    --pri: #7fb6d9;
+    --pri-weak: #17242e;
+    --pri-line: #2d4a5e;
+
+    --act: #f0a06a;
+    --act-weak: #2a1d13;
+    --act-line: #5b3d24;
+
     --warn-bg: #2b2513;
     --warn-line: #c9a227;
     --plus: #6ecf9a;
     --minus: #ef8a8f;
+
+    --shadow: none;
   }
 }
 
@@ -44,56 +69,150 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
   line-height: 1.8;
   font-size: 16px;
+  -webkit-text-size-adjust: 100%;
 }
 
-main { max-width: 760px; margin: 0 auto; padding: 0 16px 64px; }
+/* 金額・件数は桁を揃える */
+.num, td, th, .hero-num, .big { font-variant-numeric: tabular-nums; }
+
+main { max-width: 780px; margin: 0 auto; padding: 0 16px 72px; }
+
+/* ---------- ヘッダー・パンくず ---------- */
 
 header.site {
   border-bottom: 1px solid var(--line);
-  padding: 12px 16px;
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 header.site .logo {
+  display: block;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 13px 16px;
   font-weight: 700;
   color: var(--fg);
   text-decoration: none;
   font-size: 17px;
+  letter-spacing: .01em;
 }
 
 .crumbs {
-  max-width: 760px;
+  max-width: 780px;
   margin: 0 auto;
-  padding: 12px 16px 0;
+  padding: 14px 16px 0;
   font-size: 13px;
   color: var(--sub);
 }
-.crumbs a { color: var(--accent); }
+.crumbs a { color: var(--pri); text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
 
-h1 { font-size: 24px; line-height: 1.5; margin: 20px 0 8px; }
-h2 { font-size: 19px; margin: 32px 0 12px; }
-h3 { font-size: 17px; margin: 0 0 8px; }
+h1 {
+  font-size: clamp(22px, 5.4vw, 28px);
+  line-height: 1.45;
+  margin: 18px 0 6px;
+  letter-spacing: -.01em;
+}
+h2 { font-size: 20px; margin: 40px 0 12px; letter-spacing: -.01em; }
+h3 { font-size: 17px; margin: 0 0 10px; letter-spacing: -.01em; }
 h4 { font-size: 16px; margin: 0 0 8px; }
 
-.source-top { font-size: 12px; color: var(--sub); margin: 0 0 20px; }
+.source-top { font-size: 12px; color: var(--sub); margin: 0 0 18px; }
+
+/* ---------- ヒーロー（このページの結論を最初に出す） ---------- */
 
 .hero {
-  background: var(--card);
-  border-left: 4px solid var(--accent);
-  padding: 14px 16px;
-  margin: 20px 0;
-  font-size: 17px;
+  background: var(--pri-weak);
+  border: 1px solid var(--pri-line);
+  border-radius: 14px;
+  padding: 22px 20px 20px;
+  margin: 18px 0 22px;
 }
-.hero strong { font-size: 20px; }
+.hero-label { margin: 0; font-size: 14px; color: var(--sub); }
+.hero-num {
+  margin: 2px 0 0;
+  font-size: clamp(38px, 11vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  color: var(--pri);
+}
+.hero-num .u { font-size: .46em; font-weight: 700; margin-left: 2px; letter-spacing: 0; }
+.hero-sub { margin: 4px 0 0; font-size: 15px; font-weight: 600; }
+
+ul.badges {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 16px 0 0;
+}
+ul.badges li {
+  font-size: 12.5px;
+  line-height: 1.5;
+  background: var(--bg);
+  border: 1px solid var(--pri-line);
+  border-radius: 999px;
+  padding: 5px 12px;
+  color: var(--sub);
+}
+ul.badges .mark { color: var(--pri); margin-right: 3px; }
+
+.hero-go {
+  display: block;
+  margin-top: 18px;
+  padding: 15px 18px;
+  background: var(--act);
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.hero-go:hover { filter: brightness(1.08); }
+.hero-go .arrow { margin-left: 6px; }
+@media (prefers-color-scheme: dark) { .hero-go { color: #14171c; } }
+
+/* ---------- 目次 ---------- */
+
+nav.toc {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 0 0 24px;
+  background: var(--card);
+}
+nav.toc .toc-t { margin: 0 0 8px; font-weight: 700; font-size: 14px; }
+nav.toc ol { margin: 0; padding-left: 22px; font-size: 15px; }
+nav.toc li { margin: 4px 0; }
+nav.toc a { color: var(--pri); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+
+/* ---------- カード ---------- */
 
 .card {
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 12px;
+  padding: 20px;
   margin: 20px 0;
   background: var(--bg);
 }
+.card > h3:first-child { padding-bottom: 10px; border-bottom: 1px solid var(--line); }
 
-.lead { font-size: 14px; color: var(--sub); margin: 0 0 12px; }
-.note { font-size: 13px; color: var(--sub); margin: 12px 0 0; }
+/* 根拠カード（信頼の担保をあえて見せる） */
+.trust { background: var(--card); border-color: var(--line-strong); }
+.trust ul { list-style: none; padding: 0; margin: 0; }
+.trust li { padding: 10px 0; border-bottom: 1px dashed var(--line-strong); font-size: 14.5px; }
+.trust li:last-child { border-bottom: 0; padding-bottom: 0; }
+.trust li b { display: block; font-size: 15px; margin-bottom: 2px; }
+.trust .mark { color: var(--pri); }
+
+.lead { font-size: 14px; color: var(--sub); margin: 0 0 14px; }
+.note { font-size: 13px; color: var(--sub); margin: 14px 0 0; }
 .sub  { font-size: 12px; color: var(--sub); display: block; }
 
 /* 記号＋文字ラベル（色に頼らない区分け） */
@@ -103,70 +222,124 @@ h4 { font-size: 16px; margin: 0 0 8px; }
 .warn {
   background: var(--warn-bg);
   border-left: 4px solid var(--warn-line);
-  padding: 10px 12px;
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
   font-size: 13px;
-  margin: 12px 0;
+  margin: 14px 0;
 }
 
-table { width: 100%; border-collapse: collapse; font-size: 15px; }
-th, td { border-bottom: 1px solid var(--line); padding: 10px 8px; text-align: left; vertical-align: top; }
-th { font-weight: 600; width: 42%; }
-td.big, .big { font-size: 19px; font-weight: 700; }
+/* ---------- 表 ---------- */
 
-.scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { border-bottom: 1px solid var(--line); padding: 11px 8px; text-align: left; vertical-align: top; }
+thead th { font-size: 13px; color: var(--sub); border-bottom: 1px solid var(--line-strong); }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+th { font-weight: 600; width: 42%; }
+td.big, .big { font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
+
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .scroll table { min-width: 420px; }
 
-/* 計算ツール */
-.calc .fields { display: grid; gap: 14px; margin: 16px 0; }
+/* ---------- 計算ツール（このページの主役） ---------- */
+
+.calc {
+  border: 2px solid var(--act-line);
+  background: var(--act-weak);
+  border-radius: 14px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
+}
+.calc > h3:first-child {
+  font-size: 19px;
+  border-bottom: 1px solid var(--act-line);
+  padding-bottom: 12px;
+}
+.calc .fields {
+  display: grid;
+  gap: 14px;
+  margin: 18px 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+}
 .calc label { display: block; font-size: 14px; font-weight: 600; }
-.calc .hint { display: block; font-size: 12px; color: var(--sub); font-weight: 400; margin: 2px 0 4px; }
+.calc .hint { display: block; font-size: 12px; color: var(--sub); font-weight: 400; margin: 2px 0 6px; }
 .calc input[type="number"], .calc select {
   font-size: 16px;
-  padding: 8px 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
   background: var(--bg);
   color: var(--fg);
-  width: 160px;
+  width: 170px;
+}
+.calc input[type="number"]:focus, .calc select:focus {
+  outline: 2px solid var(--pri);
+  outline-offset: 1px;
 }
 .calc label.check { font-weight: 400; }
 .calc label.check span { font-weight: 600; }
 
 .result { margin-top: 20px; }
+.result table { background: var(--bg); border-radius: 10px; }
 table.cmp th { width: 34%; }
-table.cmp tr.best { background: var(--card); }
+table.cmp tr.best { background: var(--pri-weak); }
 .plus  { color: var(--plus); }
 .minus { color: var(--minus); }
 
 .gap {
-  background: var(--card);
-  border-left: 4px solid var(--accent);
-  padding: 12px 14px;
-  margin: 16px 0;
+  background: var(--bg);
+  border: 2px solid var(--pri-line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 16px 0 0;
+  font-size: 15px;
 }
+.gap .mark { color: var(--pri); }
 
-details { margin-top: 12px; font-size: 13px; }
-summary { cursor: pointer; color: var(--accent); }
+details { margin-top: 14px; font-size: 13px; }
+summary { cursor: pointer; color: var(--pri); font-weight: 600; }
 .calcdetail { padding-left: 20px; color: var(--sub); }
 
-/* 出口（1ページに1つだけ） */
+/* ---------- 次の一手（出口） ---------- */
+
+.next {
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
+  padding: 22px 20px;
+  margin: 36px 0 0;
+  background: var(--card);
+}
+.next h2 { margin: 0 0 6px; font-size: 19px; }
+.next .lead { margin-bottom: 14px; }
+.next ol { margin: 0; padding-left: 22px; font-size: 15px; }
+.next ol li { margin: 10px 0; }
+.next ol li b { display: block; }
+.next ol li a { color: var(--pri); }
+
 .cta {
-  border: 2px solid var(--accent);
-  border-radius: 8px;
-  padding: 20px 16px;
-  margin: 32px 0;
+  border: 2px solid var(--act);
+  border-radius: 14px;
+  padding: 24px 20px;
+  margin: 20px 0 0;
   text-align: center;
+  background: var(--bg);
+  box-shadow: var(--shadow);
 }
 .cta .btn {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 14px 24px;
-  background: var(--accent);
+  display: block;
+  margin-top: 14px;
+  padding: 16px 24px;
+  background: var(--act);
   color: #fff;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 10px;
   font-weight: 700;
+  font-size: 17px;
 }
+.cta .btn:hover { filter: brightness(1.08); }
+@media (prefers-color-scheme: dark) { .cta .btn { color: #14171c; } }
 .pr {
   font-size: 11px;
   border: 1px solid currentColor;
@@ -176,26 +349,70 @@ summary { cursor: pointer; color: var(--accent); }
   vertical-align: middle;
 }
 
-/* 一覧 */
-ul.citylist, ul.preflist { list-style: none; padding: 0; display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-ul.citylist li, ul.preflist li { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; }
-ul.citylist a, ul.preflist a { color: var(--accent); text-decoration: none; font-weight: 600; }
+/* ---------- 一覧（都道府県・市区町村） ---------- */
+
+ul.citylist, ul.preflist {
+  list-style: none; padding: 0;
+  display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+ul.citylist li, ul.preflist li {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  transition: border-color .12s, background .12s;
+}
+ul.citylist li:hover, ul.preflist li:hover { border-color: var(--pri); background: var(--pri-weak); }
+ul.citylist a, ul.preflist a {
+  display: block; padding: 12px 14px;
+  color: var(--pri); text-decoration: none; font-weight: 600;
+}
+ul.citylist .sub, ul.preflist .sub { padding: 0 14px 10px; margin-top: -6px; }
+
+/* ---------- フッター ---------- */
 
 footer.site {
   border-top: 1px solid var(--line);
-  padding: 24px 16px 48px;
-  max-width: 760px;
+  padding: 28px 16px 56px;
+  max-width: 780px;
   margin: 0 auto;
   font-size: 13px;
   color: var(--sub);
 }
-footer.site h2 { font-size: 15px; color: var(--fg); }
+footer.site h2 { font-size: 15px; color: var(--fg); margin: 20px 0 6px; }
 .credit { font-size: 12px; }
 ul.refs { padding-left: 20px; }
-ul.refs a { color: var(--accent); }
-.copy { margin-top: 20px; font-size: 12px; }
+ul.refs a { color: var(--pri); }
+.copy { margin-top: 24px; font-size: 12px; }
+.updated { font-size: 12px; margin: 0 0 14px; }
 
-/* フッターの固定ページへのリンク（運営者情報・プライバシーポリシー・免責事項）。
-   ASPの審査でもユーザーからも、ここが見えることが信用につながる。 */
-footer.site .sitelinks{margin:0 0 .8em;font-size:.95em}
-footer.site .sitelinks a{color:inherit;text-decoration:underline}
+footer.site .sitelinks { margin: 0 0 14px; font-size: 13px; }
+footer.site .sitelinks a { color: var(--pri); text-decoration: underline; }
+
+/* 目次から飛んだとき、上部に固定されたヘッダーに隠れないようにする */
+[id] { scroll-margin-top: 72px; }
+.anchor { height: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* 横に長い表（年ごとの推移・町名別）の列幅。
+   🔴 見出し列を42%固定にすると、いちばん大事な「価格」の列が押し出されて
+      横スクロールの外に隠れてしまう。この種の表では列幅を自動に戻す。 */
+.scroll th { width: auto; white-space: nowrap; }
+.scroll td { white-space: nowrap; }
+.scroll table { min-width: 100%; }
+
+/* 築年の内訳は見出し（旧耐震／新耐震）が長いので、見出し側を広めに取る */
+.age th { width: 50%; }
+
+/* 計算結果の直後に置く「次にやること」への導線 */
+.afterresult { margin: 14px 0 0; font-size: 15px; font-weight: 700; }
+.afterresult a { color: var(--pri); }
+
+/* 画面が狭いときは余白を詰めて、本文の1行あたりの文字数を確保する */
+@media (max-width: 520px) {
+  main { padding: 0 12px 72px; }
+  .card, .calc, .next, .hero { padding-left: 16px; padding-right: 16px; }
+  h1 { font-size: 22px; }
+  th, td { padding: 10px 6px; }
+}
