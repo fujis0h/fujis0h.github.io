@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://akiya-souba.com/sitemap.xml
+Sitemap: https://fujis0h.github.io/sitemap.xml
