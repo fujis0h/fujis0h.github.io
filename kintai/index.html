@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>藤谷 勤怠</title>
+<!-- ホーム画面に置いたときの名前・アイコン・全画面表示の設定 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="藤谷 勤怠">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#1D1C1A">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  html,body{margin:0;height:100%;background:#1D1C1A;overflow:hidden}
+  /* アプリ本体（Googleの画面）を全面に表示する */
+  iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#FBFAF5;
+    padding-top:env(safe-area-inset-top);box-sizing:border-box}
+</style>
+</head>
+<body>
+<iframe id="app" title="藤谷 勤怠" allow="clipboard-write"></iframe>
+<script>
+/*
+  このページは「ホーム画面のアイコン」から開く入口。
+  ・中にGoogleのアプリ本体を表示する（こうするとGoogleの青い帯が出ない）
+  ・この端末の登録情報（端末キー）をこのページで覚えておき、本体に渡す
+*/
+var APP = 'https:' + String.fromCharCode(47,47) + 'script.google.com/macros/s/AKfycby3nOg_vXK93tw1Qu18fqzRqexEhCqUT3Z5fUFnvG2Z6bdb3katPd8ql6iwSYcBjs-V6Q/exec';
+function load() {
+  var key = '';
+  try { key = localStorage.getItem('fujiya_device_key') || ''; } catch (e) {}
+  document.getElementById('app').src = APP + (key ? '?k=' + encodeURIComponent(key) : '');
+}
+/* 本体で登録が済んだら知らせが来るので、ここで覚えて開き直す */
+window.addEventListener('message', function (ev) {
+  var d = ev.data || {};
+  if (d.type === 'fujiya-device-key' && /^[A-Za-z0-9-]+$/.test(d.key || '')) {
+    try { localStorage.setItem('fujiya_device_key', d.key); } catch (e) {}
+    load();
+  }
+});
+load();
+</script>
+</body>
+</html>
